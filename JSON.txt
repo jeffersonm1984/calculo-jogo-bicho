@@ -1,0 +1,11 @@
+{
+  "centena": 878,
+  "mes": 12,
+  "resultado_mult": 10536,
+  "dezena1": 53,
+  "ultimo_digito": 6,
+  "valor_final": 59,
+  "grupo": 23,
+  "animal": "Cachorro",
+  "milhar": "5900"
+}
