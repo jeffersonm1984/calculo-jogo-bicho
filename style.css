@@ -1,0 +1,40 @@
+:root{
+  --bg:#111;
+  --fg:#0f0;
+  --card:#222;
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+main{
+  text-align:center;
+  max-width:320px;
+}
+button{
+  background:var(--fg);
+  color:var(--bg);
+  border:none;
+  padding:.6rem 1.2rem;
+  font-size:1rem;
+  cursor:pointer;
+  border-radius:4px;
+}
+button:hover{filter:brightness(.9);}
+#box{
+  background:var(--card);
+  padding:1rem;
+  margin-top:1rem;
+  border-radius:6px;
+}
+.hidden{display:none;}
+pre{
+  text-align:left;
+  font-size:.75rem;
+  white-space:pre-wrap;
+}
