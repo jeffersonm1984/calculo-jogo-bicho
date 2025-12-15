@@ -1,28 +1,30 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <title>Palpite Jogo do Bicho</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Milhar do Bicho - Gerador Oficial</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <main>
-    <h1>🎯 Palpite do Bicho</h1>
-    <p>Centena do 7º prêmio (PTr 09h20) × mês</p>
+  <main class="card">
+    <header>
+      <h1>Milhar do Bicho</h1>
+      <p class="subtitle">Escolha o grupo e receba 10 milhares oficiais</p>
+    </header>
 
-    <label>
-      Escolha a data:
-      <input type="date" id="dataSel" max=""/>
-    </label>
-    <button id="btn">Gerar Palpite</button>
+    <section class="controls">
+      <label for="grupoSelect">Grupo (1 a 25)</label>
+      <div class="dual-input">
+        <select id="grupoSelect"></select>
+        <input id="grupoManual" type="number" min="1" max="25" placeholder="Ou digite">
+      </div>
+      <button id="btnGerar">Gerar 10 Milhares</button>
+    </section>
 
-    <section id="box" class="hidden">
-      <h2 id="animal"></h2>
-      <p id="grupo"></p>
-      <details>
-        <summary>Ver detalhes</summary>
-        <pre id="detalhes"></pre>
-      </details>
+    <section id="resultado" class="resultado hidden">
+      <h2 id="animalNome"></h2>
+      <div id="milhares" class="milhares"></div>
     </section>
   </main>
 

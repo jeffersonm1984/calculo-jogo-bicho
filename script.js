@@ -1,53 +1,47 @@
-const tabela = {
-  1:"Avestruz",2:"Águia",3:"Burro",4:"Borboleta",5:"Cachorro",6:"Cabra",
-  7:"Carneiro",8:"Camelo",9:"Cobra",10:"Coelho",11:"Cavalo",12:"Elefante",
-  13:"Galo",14:"Gato",15:"Jacaré",16:"Leão",17:"Macaco",18:"Porco",
-  19:"Pavão",20:"Peru",21:"Touro",22:"Tigre",23:"Urso",24:"Veado",25:"Vaca"
-};
+const animais = [
+  "Avestruz","Águia","Burro","Borboleta","Cachorro",
+  "Cabra","Carneiro","Camelo","Cobra","Coelho",
+  "Cavalo","Elefante","Galo","Gato","Jacaré",
+  "Leão","Macaco","Porco","Pavão","Peru",
+  "Touro","Tigre","Urso","Veado","Vaca"
+];
 
-const pad = n => n.toString().padStart(2,'0');
-const grupoDe = m => ((m % 100) % 25) || 25;
+const grupoSelect  = document.getElementById('grupoSelect');
+const grupoManual  = document.getElementById('grupoManual');
+const btnGerar     = document.getElementById('btnGerar');
+const resultado    = document.getElementById('resultado');
+const animalNome   = document.getElementById('animalNome');
+const milharesDiv  = document.getElementById('milhares');
 
-// limita dias futuros
-const hoje = new Date().toISOString().slice(0,10);
-document.getElementById('dataSel').max = hoje;
-document.getElementById('dataSel').value = hoje;
+// popula o <select>
+animais.forEach((animal, i) => {
+  const opt = document.createElement('option');
+  opt.value = i + 1;
+  opt.textContent = `${i + 1} - ${animal}`;
+  grupoSelect.appendChild(opt);
+});
 
-async function buscaPorData(yyyy,mm,dd){
-  // formato do nome do JSON histórico: 2024-12-10.json
-  const url = `https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/main/historico/${yyyy}-${pad(mm)}-${pad(dd)}.json`;
-  const rsp  = await fetch(url);
-  if(!rsp.ok) return null;
-  return rsp.json();
-}
+// sincroniza select ↔ manual
+grupoSelect.addEventListener('change', () => grupoManual.value = grupoSelect.value);
+grupoManual.addEventListener('input', () => {
+  const v = Math.max(1, Math.min(25, Number(grupoManual.value) || 1));
+  grupoManual.value = v;
+  grupoSelect.value = v;
+});
 
-async function gerarPalpite(){
-  const btn = document.getElementById('btn');
-  btn.disabled = true;
-  btn.textContent = 'Carregando...';
+// gera as milhares
+btnGerar.addEventListener('click', () => {
+  const grupo = Number(grupoSelect.value);
+  const base  = (grupo - 1) * 4;           // 0, 4, 8,..., 96
+  const dezenasFinais = [base, base + 1, base + 2, base + 3];
 
-  const [yyyy,mm,dd] = document.getElementById('dataSel').value.split('-').map(Number);
-  let data = await buscaPorData(yyyy,mm,dd);
+  const milhares = Array.from({length: 10}, () => {
+    const centena = Math.floor(Math.random() * 100); // 00-99
+    const dezenaFinal = dezenasFinais[Math.floor(Math.random() * 4)];
+    return (centena * 100 + dezenaFinal).toString().padStart(4, '0');
+  });
 
-  // fallback: tenta o mais recente (hoje)
-  if(!data){
-    data = await buscaPorData(...hoje.split('-').map(Number));
-    if(!data){
-      alert('Palpite ainda não disponível para esta data.');
-      btn.disabled = false;
-      btn.textContent = 'Gerar Palpite';
-      return;
-    }
-  }
-
-  const animal = tabela[data.grupo];
-  document.getElementById('animal').textContent = '🐾 ' + animal;
-  document.getElementById('grupo').textContent  = `Grupo ${pad(data.grupo)}`;
-  document.getElementById('detalhes').textContent = JSON.stringify(data,null,2);
-  document.getElementById('box').classList.remove('hidden');
-
-  btn.disabled = false;
-  btn.textContent = 'Gerar Palpite';
-}
-
-document.getElementById('btn').addEventListener('click', gerarPalpite);
+  animalNome.textContent = animais[grupo - 1];
+  milharesDiv.innerHTML  = milhares.map(m => `<span>${m}</span>`).join('');
+  resultado.classList.remove('hidden');
+});

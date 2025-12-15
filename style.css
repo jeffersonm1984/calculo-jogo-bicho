@@ -1,47 +1,142 @@
-:root{
-  --bg:#111;
-  --fg:#0f0;
-  --card:#222;
-  font-family:Arial,Helvetica,sans-serif;
+:root {
+  --radius: 12px;
+  --gap: 1rem;
 }
-body{
-  background:var(--bg);
-  color:var(--fg);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
-main{
-  text-align:center;
-  max-width:320px;
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
-button{
-  background:var(--fg);
-  color:var(--bg);
-  border:none;
-  padding:.6rem 1.2rem;
-  font-size:1rem;
-  cursor:pointer;
-  border-radius:4px;
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-button:hover{filter:brightness(.9);}
-#box{
-  background:var(--card);
-  padding:1rem;
-  margin-top:1rem;
-  border-radius:6px;
+
+.card {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  padding: 2rem 2.5rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
 }
-.hidden{display:none;}
-pre{
-  text-align:left;
-  font-size:.75rem;
-  white-space:pre-wrap;
+
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
-/* ... tudo o que já tinha ... */
-input[type=date]{
-  padding:.3rem .5rem;
-  margin-left:.5rem;
-  border:none;
-  border-radius:4px;
+
+h1 {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #ffd700;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.dual-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dual-input select,
+.dual-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1rem;
+}
+
+select {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+input {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+button {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1rem;
+  background: #ffd700;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #ff8c00;
+}
+
+.resultado {
+  margin-top: 2rem;
+  text-align: center;
+  animation: fade 0.4s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none;
+}
+
+#animalNome {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ffd700;
+}
+
+.milhares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.milhares span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
 }
